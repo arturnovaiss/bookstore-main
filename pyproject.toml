@@ -10,9 +10,10 @@ python = "^3.11"
 pytest = "^7.4.3"
 factory-boy = "^3.3.0"
 django = "^4.2.7"
-django-restframework = "^0.0.1"
 django-extensions = "^3.2.3"
 django-debug-toolbar = "^4.2.0"
+poetry = "^1.7.1"
+djangorestframework = "^3.14.0"
 
 
 [build-system]
