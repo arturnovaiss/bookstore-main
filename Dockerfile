@@ -1,5 +1,5 @@
 # `python-base` sets up all our shared environment variables
-FROM python:3.8.1-slim as python-base
+FROM python:3.11-slim as python-base
 
     # python
 ENV PYTHONUNBUFFERED=1 \
@@ -53,7 +53,7 @@ COPY poetry.lock pyproject.toml ./
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
 RUN poetry install --no-dev
 
-RUN pip install tomli
+
 # quicker install as runtime deps are already installed
 RUN poetry install
 
