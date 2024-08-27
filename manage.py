@@ -2,6 +2,9 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import git
+
+git.refresh(r'C:\Program Files\Git\bin\git.exe')
 
 
 def main():
