@@ -1,10 +1,10 @@
 name: Python application
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Mova para cá
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # Versão mais recente
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -23,10 +23,15 @@ jobs:
         python -m ensurepip
         python -m pip install --upgrade pip
         python -m pip install --upgrade poetry
-        echo "::add-path::$(python -m poetry config virtualenvs.path)"
-        
+
+    - name: Configure Git for Python
+      run: |
+        echo "Setting up Git executable path"
+        export GIT_PYTHON_GIT_EXECUTABLE=$(which git)
+      shell: bash
+
     - name: Install dependencies
-      run: poetry install  # Uso do comando direto
+      run: poetry install
 
     - name: Test
       run: poetry run python manage.py test

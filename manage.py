@@ -4,8 +4,6 @@ import os
 import sys
 import git
 
-git.refresh(r'C:\Program Files\Git\bin\git.exe')
-
 
 def main():
     """Run administrative tasks."""
