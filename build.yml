@@ -4,18 +4,17 @@ on: [push]
 
 jobs:
   build:
+    runs-on: ubuntu-latest  # Mova para cá
     strategy:
       fail-fast: false
       matrix:
         python-version: [3.8, 3.9]
 
-    runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Versão mais recente
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -24,13 +23,10 @@ jobs:
         python -m ensurepip
         python -m pip install --upgrade pip
         python -m pip install --upgrade poetry
-    - name: View poetry --help
-      run: poetry --help
-
+        echo "::add-path::$(python -m poetry config virtualenvs.path)"
+        
     - name: Install dependencies
-      shell: bash
-      run: python -m poetry install
+      run: poetry install  # Uso do comando direto
 
     - name: Test
-      run: |
-        poetry run python manage.py test
+      run: poetry run python manage.py test
